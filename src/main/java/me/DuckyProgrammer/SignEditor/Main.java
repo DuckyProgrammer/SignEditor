@@ -8,7 +8,7 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
 
-
+//test
 
 
         getCommand("editsign").setExecutor(new SignEditorCommand());
