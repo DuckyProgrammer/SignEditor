@@ -1,0 +1,12 @@
+name: SignEditor
+author: DuckyProgrammer
+version: 1.0.0
+main: me.DuckyProgrammer.SignEditor.Main
+depend: [ProtocolLib]
+api-version: 1.13
+commands:
+  editsign:
+    description: Edit the sign you're looking at.
+    aliases: [es]
+    permission: signeditor.use
+    permission-message: §cYou do not have permission to use this command.
