@@ -123,7 +123,7 @@ public final class SignGUIAPI {
                         SignGUIAPI.this.sign.getBlock().setType(Material.AIR);
 
                         SignGUIAPI.this.action.onSignClose(new SignCompletedEvent(event.getPlayer(), lines));
-                    });
+                    });//a
                 }
             }
         };
