@@ -1,9 +1,8 @@
 name: SignEditor
 author: DuckyProgrammer
-version: 1.0.0
+version: 1.0.1
 main: me.DuckyProgrammer.SignEditor.Main
-depend: [ProtocolLib]
-api-version: 1.13
+api-version: 1.8
 commands:
   editsign:
     description: Edit the sign you're looking at.
