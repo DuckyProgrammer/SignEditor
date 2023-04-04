@@ -19,7 +19,6 @@ public class SignEditorCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.RED + "Only players can use this command.");
             return false;
         }
-
         if (!player.hasPermission("signeditor.use")) {
             player.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             return false;

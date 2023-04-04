@@ -34,7 +34,6 @@ public final class SignGUIAPI {
     private final Plugin plugin;
     private final UUID uuid;
     private Sign sign;
-
     @Builder
     public SignGUIAPI(SignCompleteHandler action, List<String> withLines, UUID uuid, Plugin plugin) {
         this.lines = withLines;
@@ -42,20 +41,13 @@ public final class SignGUIAPI {
         this.action = action;
         this.uuid = uuid;
     }
-
     public void open() {
         Player player = Bukkit.getPlayer(uuid);
-
         if(player == null) return;
-
         this.listener = new LeaveListener();
-
         int x_start = player.getLocation().getBlockX();
-
         int y_start = 255;
-
         int z_start = player.getLocation().getBlockZ();
-
         Material material = Material.getMaterial("WALL_SIGN");
         if (material == null)
             material = Material.OAK_WALL_SIGN;
@@ -66,24 +58,16 @@ public final class SignGUIAPI {
                 return;
         }
         player.getWorld().getBlockAt(x_start, y_start, z_start).setType(material);
-
         this.sign = (Sign)player.getWorld().getBlockAt(x_start, y_start, z_start).getState();
-
         int i = 0;
         for(String line : lines){
             this.sign.setLine(i, line);
             i++;
         }
-
         this.sign.update();
-
-
         PacketContainer openSign = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.OPEN_SIGN_EDITOR);
-
         BlockPosition position = new BlockPosition(x_start, y_start, z_start);
-
         openSign.getBlockPositionModifier().write(0, position);
-
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             try {
                 ProtocolLibrary.getProtocolManager().sendServerPacket(player, openSign);
@@ -95,7 +79,6 @@ public final class SignGUIAPI {
         Bukkit.getPluginManager().registerEvents(this.listener, plugin);
         registerSignUpdateListener();
     }
-
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     private class LeaveListener implements Listener {
         @EventHandler
@@ -107,29 +90,23 @@ public final class SignGUIAPI {
             }
         }
     }
-
     private void registerSignUpdateListener() {
         final ProtocolManager manager = ProtocolLibrary.getProtocolManager();
         this.packetListener = new PacketAdapter(plugin, PacketType.Play.Client.UPDATE_SIGN) {
             public void onPacketReceiving(PacketEvent event) {
                 if (event.getPlayer().getUniqueId().equals(SignGUIAPI.this.uuid)) {
                     List<String> lines = Stream.of(0,1,2,3).map(line -> getLine(event, line)).collect(Collectors.toList());
-
                     Bukkit.getScheduler().runTask(plugin, () -> {
                         manager.removePacketListener(this);
-
                         HandlerList.unregisterAll(SignGUIAPI.this.listener);
-
                         SignGUIAPI.this.sign.getBlock().setType(Material.AIR);
-
                         SignGUIAPI.this.action.onSignClose(new SignCompletedEvent(event.getPlayer(), lines));
-                    });//a
+                    });
                 }
             }
         };
         manager.addPacketListener(this.packetListener);
     }
-
     private String getLine(PacketEvent event, int line){
         return Bukkit.getVersion().contains("1.8") ?
                 ((WrappedChatComponent[])event.getPacket().getChatComponentArrays().read(0))[line].getJson().replaceAll("\"", "") :
