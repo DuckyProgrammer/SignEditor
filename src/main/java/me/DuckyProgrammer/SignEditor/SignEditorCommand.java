@@ -16,25 +16,25 @@ import java.util.Collections;
 import java.util.List;
 
 public class SignEditorCommand implements CommandExecutor, Listener {
-    private static ArrayList<Player> editing = new ArrayList<Player>();
+    private static ArrayList<Player> editing = new ArrayList<>();
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "Only players can use this command.");
+            sender.sendMessage();
             return false;
         }
         Player player = (Player) sender;
-        if (!player.hasPermission("signeditor.use")) {
-            player.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+        if (!player.hasPermission(Main.permission)) {
+            player.sendMessage(Main.noPermission);
             return false;
         }
         if (args.length == 0) {
             Block lookingAt = player.getTargetBlockExact(5);
             if (lookingAt == null) {
-                player.sendMessage(ChatColor.RED + "You are not looking at a sign.");
+                player.sendMessage(Main.noSign);
                 return false;
             }
             if (!lookingAt.getType().toString().contains("SIGN")) {
-                player.sendMessage(ChatColor.RED + "You are not looking at a sign.");
+                player.sendMessage(Main.noSign);
                 return true;
             } else {
                 editing.add(player);
@@ -55,6 +55,6 @@ public class SignEditorCommand implements CommandExecutor, Listener {
             event.setLine(i, ChatColor.translateAlternateColorCodes('&', lines.get(i)));
         }
         editing.remove(event.getPlayer());
-        event.getPlayer().sendMessage(ChatColor.GREEN + "Sign edited successfully.");
+        event.getPlayer().sendMessage(Main.signEdited);
     }
 }

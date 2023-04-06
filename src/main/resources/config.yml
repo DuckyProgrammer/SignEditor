@@ -1,0 +1,6 @@
+#The configuration file for the Sign Editor plugin
+no-permission-message: "&cYou do not have permission to use this command."
+no-sign-detected-message: "&cYou are not looking at a sign."
+sign-edited-message: "&aSign edited successfully."
+permission: "signeditor.use"
+color-sign-permission: "signeditor.color"
