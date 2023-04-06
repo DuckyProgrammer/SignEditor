@@ -1,6 +1,6 @@
 name: SignEditor
 author: DuckyProgrammer
-version: 1.0.2
+version: ${project.version}
 main: me.DuckyProgrammer.SignEditor.Main
 api-version: 1.13
 commands:
