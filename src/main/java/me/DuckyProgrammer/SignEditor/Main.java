@@ -1,5 +1,6 @@
 package me.DuckyProgrammer.SignEditor;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -23,6 +24,8 @@ public class Main extends JavaPlugin {
     public static String colorPermission;
     @Override
     public void onEnable() {
+        int pluginId = 18150; // <-- Replace with the id of your plugin!
+        Metrics metrics = new Metrics(this, pluginId);
         getCommand("editsign").setExecutor(new SignEditorCommand());
         getServer().getPluginManager().registerEvents(new SignEditorCommand(), this);
         getServer().getPluginManager().registerEvents(new UpdateNotifier(), this);
