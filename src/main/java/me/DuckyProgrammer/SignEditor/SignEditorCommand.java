@@ -19,7 +19,7 @@ public class SignEditorCommand implements CommandExecutor, Listener {
     private static ArrayList<Player> editing = new ArrayList<>();
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage();
+            sender.sendMessage(Main.playersOnly);
             return false;
         }
         Player player = (Player) sender;

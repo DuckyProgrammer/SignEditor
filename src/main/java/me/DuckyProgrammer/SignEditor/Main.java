@@ -22,6 +22,7 @@ public class Main extends JavaPlugin {
     public static String noSign;
     public static boolean updateAvailable;
     public static String colorPermission;
+    public static String playersOnly;
     @Override
     public void onEnable() {
         int pluginId = 18150; // <-- Replace with the id of your plugin!
@@ -38,6 +39,7 @@ public class Main extends JavaPlugin {
         signEdited = ChatColor.translateAlternateColorCodes('&', getConfig().getString("sign-edited-message"));
         noSign = ChatColor.translateAlternateColorCodes('&', getConfig().getString("no-sign-detected-message"));
         colorPermission = ChatColor.translateAlternateColorCodes('&', getConfig().getString("color-sign-permission"));
+        playersOnly = ChatColor.translateAlternateColorCodes('&', getConfig().getString("players-only-message"));
         if (updateAvailable) {
             getLogger().warning("A new version of SignEditor is available!");
             getLogger().warning("Download it at https://www.spigotmc.org/resources/sign-editor.109052/");
